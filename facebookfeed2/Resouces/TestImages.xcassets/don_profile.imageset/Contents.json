@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "don_profile.jpeg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "news_feed_icon.png",
       "scale" : "2x"
     },
     {

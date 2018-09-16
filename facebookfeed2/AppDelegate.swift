@@ -9,7 +9,7 @@
 import UIKit
 
 struct Constants {
-    static let barTintColor = "barTintColor"
+    static let facebookBlue = "facebookBlue"
     static let backgroundColor = "backgroundColor"
     static let infoLineColor = "infoLineColor"
     static let likesCommentColor = "likesCommentColor"
@@ -24,11 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
-        let feedController = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
-        window?.rootViewController = UINavigationController(rootViewController: feedController)
+
+        window?.rootViewController = CustomTabBarController()
         window?.makeKeyAndVisible()
 
-        UINavigationBar.appearance().barTintColor = UIColor(named: Constants.barTintColor) ?? .rgb(r: 51, g: 90, b: 149)
+        UINavigationBar.appearance().barTintColor = UIColor(named: Constants.facebookBlue) ?? .rgb(r: 51, g: 90, b: 149)
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor : UIColor.white]
         application.statusBarStyle = .lightContent
         return true

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC0F65B1214ED22D00CDA422 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0F65B0214ED22D00CDA422 /* CustomImageView.swift */; };
+		DC0F65B3214ED5DB00CDA422 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0F65B2214ED5DB00CDA422 /* CustomTabBarController.swift */; };
+		DC0F65B5214EDC4100CDA422 /* OtherControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0F65B4214EDC4100CDA422 /* OtherControllers.swift */; };
 		DC49AC3E214D66E000EBA1DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC49AC3D214D66E000EBA1DA /* AppDelegate.swift */; };
 		DC49AC40214D66E000EBA1DA /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC49AC3F214D66E000EBA1DA /* FeedController.swift */; };
 		DC49AC45214D66E300EBA1DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC49AC44214D66E300EBA1DA /* Assets.xcassets */; };
@@ -18,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DC0F65B0214ED22D00CDA422 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		DC0F65B2214ED5DB00CDA422 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		DC0F65B4214EDC4100CDA422 /* OtherControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherControllers.swift; sourceTree = "<group>"; };
 		DC49AC3A214D66E000EBA1DA /* facebookfeed2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = facebookfeed2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC49AC3D214D66E000EBA1DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC49AC3F214D66E000EBA1DA /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
@@ -64,6 +70,8 @@
 				DC49AC54214D8C9D00EBA1DA /* Resouces */,
 				DC49AC3D214D66E000EBA1DA /* AppDelegate.swift */,
 				DC49AC3F214D66E000EBA1DA /* FeedController.swift */,
+				DC0F65B2214ED5DB00CDA422 /* CustomTabBarController.swift */,
+				DC0F65B4214EDC4100CDA422 /* OtherControllers.swift */,
 				DC49AC44214D66E300EBA1DA /* Assets.xcassets */,
 				DC49AC46214D66E300EBA1DA /* LaunchScreen.storyboard */,
 				DC49AC49214D66E300EBA1DA /* Info.plist */,
@@ -76,6 +84,7 @@
 			children = (
 				DC49AC50214D739D00EBA1DA /* Extensions.swift */,
 				DC49AC52214D7D4700EBA1DA /* BaseCell.swift */,
+				DC0F65B0214ED22D00CDA422 /* CustomImageView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -163,8 +172,11 @@
 			files = (
 				DC49AC53214D7D4700EBA1DA /* BaseCell.swift in Sources */,
 				DC49AC40214D66E000EBA1DA /* FeedController.swift in Sources */,
+				DC0F65B3214ED5DB00CDA422 /* CustomTabBarController.swift in Sources */,
 				DC49AC51214D739D00EBA1DA /* Extensions.swift in Sources */,
+				DC0F65B5214EDC4100CDA422 /* OtherControllers.swift in Sources */,
 				DC49AC3E214D66E000EBA1DA /* AppDelegate.swift in Sources */,
+				DC0F65B1214ED22D00CDA422 /* CustomImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

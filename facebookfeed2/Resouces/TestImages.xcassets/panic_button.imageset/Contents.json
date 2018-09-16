@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "panic_button.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "news_feed_icon.png",
       "scale" : "2x"
     },
     {

@@ -8,6 +8,26 @@
 
 import UIKit
 
+extension UIViewController: UIScrollViewDelegate {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let hidden: Bool = scrollView.panGestureRecognizer.translation(in: scrollView).y < 0
+        changeTabBarWithHidden(hidden)
+    }
+
+    func changeTabBarWithHidden(_ hidden:Bool, animated: Bool = true) {
+        guard let tabBar = tabBarController?.tabBar else { return }
+        let height = UIScreen.main.bounds.size.height
+        let offset = hidden ? height : height - tabBar.frame.size.height
+        tabBar.isTranslucent = !hidden
+        guard offset != tabBar.frame.origin.y else { return }
+        UIView.animate(withDuration: animated ? 0.5 : 0, animations: {
+            tabBar.frame.origin.y = offset
+        }, completion: { (success) in
+            self.tabBarController?.fixTabBar()
+        })
+    }
+}
+
 class Post {
     @objc var name: String?
     @objc var profileImageName: String?
@@ -16,7 +36,9 @@ class Post {
     @objc var numLikes: NSNumber?
     @objc var numComments: NSNumber?
     var location: Location?
+    var statuImageUrl: String?
 }
+
 class Location: NSObject {
     @objc var city: String?
     @objc var state: String?
@@ -32,8 +54,18 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     var posts = [Post]()
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        imageCache.removeAllObjects()
+        print("Empty imageCache - count = \(imageCache.countLimit)")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        let memoryCapacity = 500 * 1024 * 1024
+        let diskCapacity = 500 * 1024 * 1024
+        let urlCache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "myDiskPath")
+        URLCache.shared = urlCache
         let postMark = Post()
         postMark.name = "Mark Zuckerberg"
         postMark.statusText = "Meanwhile, Beast turned to the dark side."
@@ -42,21 +74,23 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
         postMark.numLikes = 400
         postMark.numComments = 123
         postMark.location = Location(city: "Bumfuk Egypt" )
+        postMark.statuImageUrl = "https://s3-us-west-2.amazonaws.com/letsbuildthatapp/mark_zuckerberg_background.jpg"
 
         let postSteve = Post()
         postSteve.name = "Steve Jobs"
         postSteve.statusText = """
-                               Design is not just what it looks like and feels like. Design is how it works.
+        Design is not just what it looks like and feels like. Design is how it works.
 
-                               Being the richest man in the cemetery doesn't matter to me. Going to bed at night saying we've done something wonderful, that's what matters to me.
+        Being the richest man in the cemetery doesn't matter to me. Going to bed at night saying we've done something wonderful, that's what matters to me.
 
-                               Sometimes when you innovate, you make mistakes. It is best to admit them quickly, and get on with improving your other innovations.
-                               """
+        Sometimes when you innovate, you make mistakes. It is best to admit them quickly, and get on with improving your other innovations.
+        """
         postSteve.profileImageName = "steve_profile"
         postSteve.statusImageName = "steve_status"
         postSteve.numLikes = 1000
         postSteve.numComments = 5500
         postSteve.location = Location(city: "Cupertino")
+        postSteve.statuImageUrl = "https://s3-us-west-2.amazonaws.com/letsbuildthatapp/steve_jobs_background.jpg"
 
         let postGandhi = Post()
         postGandhi.name = "Mahatma Gandhi"
@@ -68,10 +102,37 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
         postGandhi.numLikes = 333
         postGandhi.numComments = 10.7 * 1000 as NSNumber
         postGandhi.location = Location(city: "Calcutta")
+        postGandhi.statuImageUrl = "https://s3-us-west-2.amazonaws.com/letsbuildthatapp/gandhi_status.jpg"
+
+        let postTim = Post()
+        postTim.name = "Tim Cook"
+        postTim.statusText = """
+                             The worst thing in the world that can happen to you if
+                             you're an engineer that has given his life to something
+                             is for someone to rip it off and put their name on it.
+                            """
+        postTim.profileImageName = "tim_profile"
+        //postTim.statusImageName = "tim_status"
+        postTim.numLikes = 528
+        postTim.numComments =  12.8 * 1000 as NSNumber
+        postTim.location = Location(city: "Cupertino")
+        postTim.statuImageUrl = "https://s3-us-west-2.amazonaws.com/letsbuildthatapp/tim_cook_status.jpg"
+
+        let postDon = Post()
+        postDon.name = "Donald J. Trump"
+        postDon.profileImageName = "don_profile"
+        postDon.statusText = "An ’extremely credible source’ has called my office and told me that Barack Obama’s birth certificate is a fraud."
+        postDon.statusImageName = nil
+        postDon.numLikes = 666
+        postDon.numComments = 13.99 * 1000 as NSNumber
+        postDon.location = Location(city: "Washington, DC")
+        postDon.statuImageUrl = "https://s3-us-west-2.amazonaws.com/letsbuildthatapp/donald_trump_status.jpg"
 
         posts += [postMark]
         posts += [postSteve]
         posts += [postGandhi]
+        posts += [postTim]
+        posts += [postDon]
 
         collectionView?.backgroundColor = UIColor(named: backgroundColor) ?? UIColor(white: 0.95, alpha: 1)
 
@@ -103,7 +164,7 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
         if let statusText = posts[indexPath.item].statusText {
             let rect = CGRect.estimatedBoundingRectWithString(statusText, width: width, attributes: [.font: knownFont])
-            return CGSize(width: width, height: rect.height + knownHeight + 24)
+            return CGSize(width: width, height: rect.height + knownHeight + 36)
         }
         return CGSize(width: width, height: 500)
     }
@@ -111,6 +172,7 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
 extension FeedController {
 
 }
+//var imageCache = NSCache<AnyObject, AnyObject>()
 
 class FeedCell: BaseCell {
     static let knownHeight: CGFloat = 8 + 44 + 4 + 4 + 200 + 8 + 24 + 8 + 44
@@ -120,6 +182,12 @@ class FeedCell: BaseCell {
         didSet {
             guard let post = post else { return }
             guard let name = post.name else { return }
+
+            if let statusImageUrl = post.statuImageUrl {
+                statusImageView.loadImageUsingUrlString(statusImageUrl)
+            } else if let statusImageName = post.statusImageName {
+                statusImageView.image = UIImage(named: statusImageName)
+            }
 
             let cityName = post.location?.city ?? "Nowhere City"
             let attributedText = NSMutableAttributedString(string: name, attributes: [.font: UIFont.boldSystemFont(ofSize: 14)])
@@ -135,9 +203,6 @@ class FeedCell: BaseCell {
             }
             if let profileImageName = post.profileImageName {
                 profileImageView.image = UIImage(named: profileImageName)
-            }
-            if let statusImageName = post.statusImageName {
-                statusImageView.image = UIImage(named: statusImageName)
             }
             let likes = post.numLikes ?? 0
             let comments = post.numComments ?? 0
@@ -169,8 +234,8 @@ class FeedCell: BaseCell {
         return textView
     }()
 
-    let statusImageView: UIImageView = {
-        let imageView = UIImageView()
+    let statusImageView: CustomImageView = {
+        let imageView = CustomImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         return imageView
@@ -201,7 +266,7 @@ class FeedCell: BaseCell {
         button.setTitleColor(buttonTitleColor, for: .normal)
         button.setImage(image, for: .normal)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 14)
         return button
     }
 

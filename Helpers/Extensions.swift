@@ -8,6 +8,29 @@
 
 import UIKit
 
+extension UIImage {
+
+    typealias RectCalculationClosure = (_ parentSize: CGSize, _ newImageSize: CGSize)->(CGRect)
+    func with(image named: String, rectCalculation: RectCalculationClosure) -> UIImage {
+        return with(image: UIImage(named: named), rectCalculation: rectCalculation)
+    }
+
+    func with(image: UIImage?, rectCalculation: RectCalculationClosure) -> UIImage {
+
+        if let image = image {
+            UIGraphicsBeginImageContext(size)
+
+            draw(in: CGRect(origin: .zero, size: size))
+            image.draw(in: rectCalculation(size, image.size))
+
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return newImage!
+        }
+        return self
+    }
+}
+
 extension Int { var spaces: String { return String(repeating: " ", count: self) } }
 
 extension NSMutableAttributedString {
