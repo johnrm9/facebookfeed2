@@ -8,20 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		DC49AC3E214D66E000EBA1DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC49AC3D214D66E000EBA1DA /* AppDelegate.swift */; };
-		DC49AC40214D66E000EBA1DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC49AC3F214D66E000EBA1DA /* ViewController.swift */; };
-		DC49AC43214D66E100EBA1DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC49AC41214D66E100EBA1DA /* Main.storyboard */; };
+		DC49AC40214D66E000EBA1DA /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC49AC3F214D66E000EBA1DA /* FeedController.swift */; };
 		DC49AC45214D66E300EBA1DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC49AC44214D66E300EBA1DA /* Assets.xcassets */; };
 		DC49AC48214D66E300EBA1DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC49AC46214D66E300EBA1DA /* LaunchScreen.storyboard */; };
+		DC49AC51214D739D00EBA1DA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC49AC50214D739D00EBA1DA /* Extensions.swift */; };
+		DC49AC53214D7D4700EBA1DA /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC49AC52214D7D4700EBA1DA /* BaseCell.swift */; };
+		DC49AC56214D8CC500EBA1DA /* ColorAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC49AC55214D8CC500EBA1DA /* ColorAssets.xcassets */; };
+		DC49AC58214D8E7D00EBA1DA /* TestImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC49AC57214D8E7D00EBA1DA /* TestImages.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DC49AC3A214D66E000EBA1DA /* facebookfeed2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = facebookfeed2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC49AC3D214D66E000EBA1DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DC49AC3F214D66E000EBA1DA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DC49AC42214D66E100EBA1DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DC49AC3F214D66E000EBA1DA /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
 		DC49AC44214D66E300EBA1DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC49AC47214D66E300EBA1DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DC49AC49214D66E300EBA1DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC49AC50214D739D00EBA1DA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		DC49AC52214D7D4700EBA1DA /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		DC49AC55214D8CC500EBA1DA /* ColorAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorAssets.xcassets; sourceTree = "<group>"; };
+		DC49AC57214D8E7D00EBA1DA /* TestImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TestImages.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +45,7 @@
 			isa = PBXGroup;
 			children = (
 				DC49AC3C214D66E000EBA1DA /* facebookfeed2 */,
+				DC49AC4F214D738400EBA1DA /* Helpers */,
 				DC49AC3B214D66E000EBA1DA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,14 +61,32 @@
 		DC49AC3C214D66E000EBA1DA /* facebookfeed2 */ = {
 			isa = PBXGroup;
 			children = (
+				DC49AC54214D8C9D00EBA1DA /* Resouces */,
 				DC49AC3D214D66E000EBA1DA /* AppDelegate.swift */,
-				DC49AC3F214D66E000EBA1DA /* ViewController.swift */,
-				DC49AC41214D66E100EBA1DA /* Main.storyboard */,
+				DC49AC3F214D66E000EBA1DA /* FeedController.swift */,
 				DC49AC44214D66E300EBA1DA /* Assets.xcassets */,
 				DC49AC46214D66E300EBA1DA /* LaunchScreen.storyboard */,
 				DC49AC49214D66E300EBA1DA /* Info.plist */,
 			);
 			path = facebookfeed2;
+			sourceTree = "<group>";
+		};
+		DC49AC4F214D738400EBA1DA /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DC49AC50214D739D00EBA1DA /* Extensions.swift */,
+				DC49AC52214D7D4700EBA1DA /* BaseCell.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		DC49AC54214D8C9D00EBA1DA /* Resouces */ = {
+			isa = PBXGroup;
+			children = (
+				DC49AC55214D8CC500EBA1DA /* ColorAssets.xcassets */,
+				DC49AC57214D8E7D00EBA1DA /* TestImages.xcassets */,
+			);
+			path = Resouces;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,8 +148,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC49AC48214D66E300EBA1DA /* LaunchScreen.storyboard in Resources */,
+				DC49AC58214D8E7D00EBA1DA /* TestImages.xcassets in Resources */,
+				DC49AC56214D8CC500EBA1DA /* ColorAssets.xcassets in Resources */,
 				DC49AC45214D66E300EBA1DA /* Assets.xcassets in Resources */,
-				DC49AC43214D66E100EBA1DA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +161,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC49AC40214D66E000EBA1DA /* ViewController.swift in Sources */,
+				DC49AC53214D7D4700EBA1DA /* BaseCell.swift in Sources */,
+				DC49AC40214D66E000EBA1DA /* FeedController.swift in Sources */,
+				DC49AC51214D739D00EBA1DA /* Extensions.swift in Sources */,
 				DC49AC3E214D66E000EBA1DA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,14 +171,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		DC49AC41214D66E100EBA1DA /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC49AC42214D66E100EBA1DA /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DC49AC46214D66E300EBA1DA /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
