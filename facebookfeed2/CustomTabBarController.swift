@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 extension UITabBar {
     static var topThinBorderLine: CALayer {
         let layer = CALayer()
@@ -16,7 +17,7 @@ extension UITabBar {
     }
 }
 extension UITabBarController {
-    func fixTabBar(){
+    func fixTabBar() {
         tabBar.isTranslucent = false
         tabBar.clipsToBounds = true
         tabBar.layer.addSublayer(UITabBar.topThinBorderLine)
@@ -27,14 +28,13 @@ class CustomTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let feedNavigationController = templateNavigationController(title: "News Feed", unselectedImage: #imageLiteral(resourceName: "news_feed_icon"),
+                                                                    rootViewController: FeedController(collectionViewLayout: UICollectionViewFlowLayout()))
 
-        let feedNavigationController = templateNavigationController(title: "News Feed", unselectedImage: #imageLiteral(resourceName: "news_feed_icon").withRenderingMode(.alwaysOriginal),
-                                        rootViewController: FeedController(collectionViewLayout: UICollectionViewFlowLayout()))
-
-        let friendsRequestNavigationController = templateNavigationController(title: "Requests", unselectedImage: #imageLiteral(resourceName: "requests_icon").withRenderingMode(.alwaysOriginal), rootViewController: FriendRequestsController())
-        let messengerNavigationController = templateNavigationController(title: "Messenger", unselectedImage: #imageLiteral(resourceName: "messenger_icon").withRenderingMode(.alwaysOriginal))
-        let notificatonsNavigationController = templateNavigationController(title: "Notifications", unselectedImage: #imageLiteral(resourceName: "globe_icon").withRenderingMode(.alwaysOriginal))
-        let moreNavigationController = templateNavigationController(title: "More", unselectedImage: #imageLiteral(resourceName: "more_icon").withRenderingMode(.alwaysOriginal))
+        let friendsRequestNavigationController = templateNavigationController(title: "Requests", unselectedImage: #imageLiteral(resourceName: "requests_icon"), rootViewController: FriendRequestsController())
+        let messengerNavigationController = templateNavigationController(title: "Messenger", unselectedImage: #imageLiteral(resourceName: "messenger_icon"))
+        let notificatonsNavigationController = templateNavigationController(title: "Notifications", unselectedImage: #imageLiteral(resourceName: "globe_icon"))
+        let moreNavigationController = templateNavigationController(title: "More", unselectedImage: #imageLiteral(resourceName: "more_icon"))
 
         viewControllers = [feedNavigationController, friendsRequestNavigationController, messengerNavigationController, notificatonsNavigationController,
                            moreNavigationController]
@@ -46,6 +46,7 @@ class CustomTabBarController: UITabBarController {
         let viewController = rootViewController ?? UIViewController()
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.title = title
+        navigationController.navigationBar.barStyle = .black
 
         navigationController.tabBarItem.image = unselectedImage
         if let selectedImage = selectedImage {
@@ -62,5 +63,4 @@ class CustomTabBarController: UITabBarController {
 
         return navigationController
     }
-
 }

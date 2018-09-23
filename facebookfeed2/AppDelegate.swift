@@ -22,15 +22,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        window = UIWindow()
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        window?.rootViewController = CustomTabBarController()
+        window = UIWindow()
         window?.makeKeyAndVisible()
 
-        UINavigationBar.appearance().barTintColor = UIColor(named: Constants.facebookBlue) ?? .rgb(r: 51, g: 90, b: 149)
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor : UIColor.white]
-        application.statusBarStyle = .lightContent
+        window?.rootViewController = CustomTabBarController()
+
+        UITabBar.appearance().tintColor = .tabBarTintColor
+
+        UINavigationBar.appearance().barTintColor = .facebookBlue
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
+        //application.statusBarStyle = .lightContent
+        //UIApplication.shared.statusBarStyle = .lightContent
         return true
     }
 }

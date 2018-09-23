@@ -14,7 +14,7 @@ extension UIViewController: UIScrollViewDelegate {
         changeTabBarWithHidden(hidden)
     }
 
-    func changeTabBarWithHidden(_ hidden:Bool, animated: Bool = true) {
+    func changeTabBarWithHidden(_ hidden: Bool, animated: Bool = true) {
         guard let tabBar = tabBarController?.tabBar else { return }
         let height = UIScreen.main.bounds.size.height
         let offset = hidden ? height : height - tabBar.frame.size.height
@@ -22,168 +22,154 @@ extension UIViewController: UIScrollViewDelegate {
         guard offset != tabBar.frame.origin.y else { return }
         UIView.animate(withDuration: animated ? 0.5 : 0, animations: {
             tabBar.frame.origin.y = offset
-        }, completion: { (success) in
+        }, completion: { (_) in
             self.tabBarController?.fixTabBar()
         })
     }
 }
 
-class Post {
-    @objc var name: String?
-    @objc var profileImageName: String?
-    @objc var statusText: String?
-    @objc var statusImageName: String?
-    @objc var numLikes: NSNumber?
-    @objc var numComments: NSNumber?
-    var location: Location?
-    var statuImageUrl: String?
-}
+class FeedController: UICollectionViewController {
+    private let cellId: String = "cellId"
 
-class Location: NSObject {
-    @objc var city: String?
-    @objc var state: String?
-    init(city: String?, state: String? = nil) {
-        self.city = city
-        self.state = state
-    }
-}
-
-class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    let cellId: String = "cellId"
-    private let backgroundColor: String = Constants.backgroundColor
-
-    var posts = [Post]()
+    let postData = PostData()
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         imageCache.removeAllObjects()
-        print("Empty imageCache - count = \(imageCache.countLimit)")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let memoryCapacity = 500 * 1024 * 1024
-        let diskCapacity = 500 * 1024 * 1024
-        let urlCache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "myDiskPath")
-        URLCache.shared = urlCache
-        let postMark = Post()
-        postMark.name = "Mark Zuckerberg"
-        postMark.statusText = "Meanwhile, Beast turned to the dark side."
-        postMark.profileImageName = "zuckprofile"
-        postMark.statusImageName = "zuckdog"
-        postMark.numLikes = 400
-        postMark.numComments = 123
-        postMark.location = Location(city: "Bumfuk Egypt" )
-        postMark.statuImageUrl = "https://s3-us-west-2.amazonaws.com/letsbuildthatapp/mark_zuckerberg_background.jpg"
-
-        let postSteve = Post()
-        postSteve.name = "Steve Jobs"
-        postSteve.statusText = """
-        Design is not just what it looks like and feels like. Design is how it works.
-
-        Being the richest man in the cemetery doesn't matter to me. Going to bed at night saying we've done something wonderful, that's what matters to me.
-
-        Sometimes when you innovate, you make mistakes. It is best to admit them quickly, and get on with improving your other innovations.
-        """
-        postSteve.profileImageName = "steve_profile"
-        postSteve.statusImageName = "steve_status"
-        postSteve.numLikes = 1000
-        postSteve.numComments = 5500
-        postSteve.location = Location(city: "Cupertino")
-        postSteve.statuImageUrl = "https://s3-us-west-2.amazonaws.com/letsbuildthatapp/steve_jobs_background.jpg"
-
-        let postGandhi = Post()
-        postGandhi.name = "Mahatma Gandhi"
-        postGandhi.statusText = "Live as if you were to die tomorrow; learn as if you were to live forever.\n" +
-            "The weak can never forgive. Forgiveness is the attribute of the strong.\n" +
-        "Happiness is when what you think, what you say, and what you do are in harmony."
-        postGandhi.profileImageName = "gandhi_profile"
-        postGandhi.statusImageName = "gandhi_status"
-        postGandhi.numLikes = 333
-        postGandhi.numComments = 10.7 * 1000 as NSNumber
-        postGandhi.location = Location(city: "Calcutta")
-        postGandhi.statuImageUrl = "https://s3-us-west-2.amazonaws.com/letsbuildthatapp/gandhi_status.jpg"
-
-        let postTim = Post()
-        postTim.name = "Tim Cook"
-        postTim.statusText = """
-                             The worst thing in the world that can happen to you if
-                             you're an engineer that has given his life to something
-                             is for someone to rip it off and put their name on it.
-                            """
-        postTim.profileImageName = "tim_profile"
-        //postTim.statusImageName = "tim_status"
-        postTim.numLikes = 528
-        postTim.numComments =  12.8 * 1000 as NSNumber
-        postTim.location = Location(city: "Cupertino")
-        postTim.statuImageUrl = "https://s3-us-west-2.amazonaws.com/letsbuildthatapp/tim_cook_status.jpg"
-
-        let postDon = Post()
-        postDon.name = "Donald J. Trump"
-        postDon.profileImageName = "don_profile"
-        postDon.statusText = "An ’extremely credible source’ has called my office and told me that Barack Obama’s birth certificate is a fraud."
-        postDon.statusImageName = nil
-        postDon.numLikes = 666
-        postDon.numComments = 13.99 * 1000 as NSNumber
-        postDon.location = Location(city: "Washington, DC")
-        postDon.statuImageUrl = "https://s3-us-west-2.amazonaws.com/letsbuildthatapp/donald_trump_status.jpg"
-
-        posts += [postMark]
-        posts += [postSteve]
-        posts += [postGandhi]
-        posts += [postTim]
-        posts += [postDon]
-
-        collectionView?.backgroundColor = UIColor(named: backgroundColor) ?? UIColor(white: 0.95, alpha: 1)
+        collectionView?.backgroundColor = .backgroundColor
 
         navigationItem.title = "FaceBook Feed"
+
         collectionView?.register(FeedCell.self, forCellWithReuseIdentifier: cellId)
+
         collectionView?.alwaysBounceVertical = true
+    }
+
+    private let keyWindow = UIApplication.shared.keyWindow ?? UIWindow()
+
+    private lazy var darkNavBarView = DarkView(frame: CGRect(x: 0, y: 0, width: 1000, height: 20 + 44))
+
+    private lazy var blackBackgroundView = DarkView(frame: self.view.frame)
+
+    private lazy var darkTabBarView = DarkView(frame: CGRect(x: 0, y: self.keyWindow.frame.height - 49,
+                                                             width: self.view.frame.width, height: 49))
+
+    private lazy var zoomImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(zoomOut)))
+        return imageView
+    }()
+
+    private var statusImageView: UIImageView? {
+        willSet { statusImageView?.toggleAlpha() }
+        didSet { statusImageView?.toggleAlpha() }
+    }
+
+    private func startingFrame(with view: UIView?) -> CGRect? {
+        guard let startingFrame = view?.superview?.convert(view?.frame ?? .zero, to: nil) else { return nil }
+        return startingFrame
+    }
+
+    func animateImageView(with imageView: UIImageView) {
+        statusImageView = imageView
+        guard let startingFrame = startingFrame(with: statusImageView) else { return }
+
+        zoomImageView.frame = startingFrame
+        zoomImageView.image = statusImageView?.image
+
+        keyWindow.addSubviews(darkNavBarView, darkTabBarView)
+        view.addSubviews(blackBackgroundView, zoomImageView)
+
+        zoomIn(with: startingFrame)
+    }
+
+    private func zoomIn(with startingFrame: CGRect) {
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: .curveEaseOut,
+                       animations: { [unowned self] in
+                        let width = self.view.frame.width
+                        let height = width / startingFrame.width * startingFrame.height
+                        let y = width / 2 - height / 2
+                        //self.zoomImageView.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height)).offSetByY(dy: y)
+                        self.zoomImageView.frame = CGRect.shared.zeroOrigin(with: CGSize(width: width, height: height)).offSetByY(dy: y)
+                        //self.zoomImageView.frame = CGRect(x: 0, y: y, width: width, height: height)
+                        UIView.toggleAlphas(views: self.blackBackgroundView, self.darkNavBarView, self.darkTabBarView)
+        })
+    }
+
+    @objc private func zoomOut() {
+        guard let startingFrame = startingFrame(with: statusImageView) else { return }
+
+        UIView.animate(withDuration: 0.75, animations: { [unowned self] in
+            self.zoomImageView.frame = startingFrame
+            UIView.toggleAlphas(views: self.blackBackgroundView, self.darkNavBarView, self.darkTabBarView)
+        }) { [unowned self] (_) in
+            self.zoomImageView.removeFromSuperview()
+            self.blackBackgroundView.removeFromSuperview()
+            self.darkNavBarView.removeFromSuperview()
+            self.darkTabBarView.removeFromSuperview()
+
+            self.statusImageView = nil
+        }
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         collectionView?.collectionViewLayout.invalidateLayout()
     }
+}
+
+extension FeedController: UICollectionViewDelegateFlowLayout {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posts.count
+        return postData.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let feedCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FeedCell
-        feedCell.post = posts[indexPath.item]
-
+        feedCell.post = postData[indexPath.item]
+        feedCell.feedController = self
         return feedCell
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width
-        let knownHeight: CGFloat = FeedCell.knownHeight
-        let knownFont: UIFont = FeedCell.knownFont
+        let knownHeight: CGFloat = ServiceMetrics.shared.knownHeight
 
-        if let statusText = posts[indexPath.item].statusText {
-            let rect = CGRect.estimatedBoundingRectWithString(statusText, width: width, attributes: [.font: knownFont])
+        if let statusText = postData[indexPath.item].statusText {
+            let rect = CGRect.estimatedBoundingRectWithString(statusText, width: width, attributes: FeedCell.knownAttributes)
             return CGSize(width: width, height: rect.height + knownHeight + 36)
         }
         return CGSize(width: width, height: 500)
     }
 }
-extension FeedController {
 
+protocol feedControllerDelegate: class {
+    var feedController: FeedController? { get }
 }
-//var imageCache = NSCache<AnyObject, AnyObject>()
 
-class FeedCell: BaseCell {
-    static let knownHeight: CGFloat = 8 + 44 + 4 + 4 + 200 + 8 + 24 + 8 + 44
-    static let knownFont: UIFont = UIFont.systemFont(ofSize: 14)
+class FeedCell: BaseCell, feedControllerDelegate {
+    weak var feedController: FeedController?
+
+    @objc private func animate() {
+        feedController?.animateImageView(with: statusImageView)
+    }
+
+    static let knownFont: UIFont = .preferredFont(forTextStyle: .body) // UIFont.systemFont(ofSize: 14)
+    static let knownAttributes: [NSAttributedString.Key: Any] = [.font: knownFont]
 
     var post: Post? {
         didSet {
             guard let post = post else { return }
             guard let name = post.name else { return }
 
-            if let statusImageUrl = post.statuImageUrl {
+            if let statusImageUrl = post.statusImageUrl {
                 statusImageView.loadImageUsingUrlString(statusImageUrl)
             } else if let statusImageName = post.statusImageName {
                 statusImageView.image = UIImage(named: statusImageName)
@@ -194,9 +180,13 @@ class FeedCell: BaseCell {
             let bullet = "•"
             let string = "\n" + "December 18\(2.spaces + bullet + 2.spaces)" + "\(cityName)\(2.spaces + bullet + 2.spaces)"
 
-            let infolineColor = UIColor(named: Constants.infoLineColor) ?? .rgb(r: 155, g: 161, b: 171)
-            attributedText.append(NSAttributedString(string: string, attributes: [.font: UIFont.systemFont(ofSize: 12), .foregroundColor: infolineColor]))
-            nameLabel.attributedText = attributedText.setLineSpacing(4).attachImage(#imageLiteral(resourceName: "globe_small") /* globe_small */, bounds: CGRect(x: 0, y: -2, width: 12, height: 12))
+            attributedText.append(NSAttributedString(string: string,
+                                attributes: [.font: UIFont.systemFont(ofSize: 12),
+                                             .foregroundColor: UIColor.infoLineColor]))
+            let bounds = CGRect.shared.smallImageFrame.offSetByY(dy: -2)
+            nameLabel.attributedText = attributedText
+                                        .setLineSpacing(4)
+                                        .attachImage( #imageLiteral(resourceName: "globe_small.png")/* globe_small */, bounds: bounds)
 
             if let statusText = post.statusText {
                 statusTextView.text = statusText
@@ -212,13 +202,14 @@ class FeedCell: BaseCell {
         }
     }
 
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
+        //label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.numberOfLines = 2
         return label
     }()
 
-    let profileImageView: UIImageView = {
+    private let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 44 / 2
         imageView.layer.masksToBounds = true
@@ -226,56 +217,50 @@ class FeedCell: BaseCell {
         return imageView
     }()
 
-    let statusTextView: UITextView = {
+    private let statusTextView: UITextView = {
         let textView = UITextView()
         textView.font = FeedCell.knownFont
         textView.isScrollEnabled = false
         textView.isEditable = false
+        textView.isSelectable = false
         return textView
     }()
 
-    let statusImageView: CustomImageView = {
+    private lazy var statusImageView: CustomImageView = {
         let imageView = CustomImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(animate)))
         return imageView
     }()
 
-    let likesCommentLabel: UILabel = {
+    private let likesCommentLabel: UILabel = {
         let label = UILabel()
-        label.text = "488 Likes  10.7K Comments"
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(named: Constants.likesCommentColor) ?? .rgb(r: 155, g: 161, b: 171)
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = .likesCommentColor
         return label
     }()
 
-    let dividerLineView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(named: Constants.dividerLineColor) ?? .rgb(r: 226, g: 228, b: 232)
-        return view
-    }()
-
-    let likeButton: UIButton = FeedCell.buttonForTitle("Like", image: #imageLiteral(resourceName: "like"))
-    let commentButton: UIButton = FeedCell.buttonForTitle("Comment", image: #imageLiteral(resourceName: "comment"))
-    let shareButton: UIButton = FeedCell.buttonForTitle("Share", image: #imageLiteral(resourceName: "share"))
-
-    static func buttonForTitle(_ title: String, image: UIImage) -> UIButton {
-        let button = UIButton()
-        button.setTitle(title, for: .normal)
-        let buttonTitleColor = UIColor(named: Constants.buttonTitleColor) ?? .rgb(r: 143, g: 150, b: 163)
-        button.setTitleColor(buttonTitleColor, for: .normal)
-        button.setImage(image, for: .normal)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 14)
-        return button
-    }
+    private let likeButton: UIButton = UIButton.buttonForTitle("Like", image: #imageLiteral(resourceName: "like"))
+    private let commentButton: UIButton = UIButton.buttonForTitle("Comment", image: #imageLiteral(resourceName: "comment"))
+    private let shareButton: UIButton = UIButton.buttonForTitle("Share", image: #imageLiteral(resourceName: "share"))
 
     override func setupViews() {
+        super.setupViews()
+
+        let metrics = ServiceMetrics.shared.metrics
+
         backgroundColor = .white
 
-        addSubviews(nameLabel, profileImageView, statusTextView, statusImageView, likesCommentLabel, dividerLineView, likeButton, commentButton, shareButton)
+        let dividerLineView = UIView.separatorView(.dividerLineColor)
 
-        addConstraints(withVisualFormat: "H:|-8-[v0(44)]-8-[v1]|", views: profileImageView, nameLabel)
+        addSubviews(nameLabel, profileImageView, statusTextView, statusImageView, likesCommentLabel, dividerLineView,
+                    likeButton, commentButton, shareButton)
+
+        addConstraints(withVisualFormat: "H:|-8-[v0(ih0)]-8-[v1]|",
+                       metrics: metrics,
+                       views: profileImageView, nameLabel)
         addConstraints(withVisualFormat: "H:|-4-[v0]-4-|", views: statusTextView)
         addConstraints(withVisualFormat: "H:|[v0]|", views: statusImageView)
         addConstraints(withVisualFormat: "H:|-12-[v0]|", views: likesCommentLabel)
@@ -285,7 +270,8 @@ class FeedCell: BaseCell {
 
         addConstraints(withVisualFormat: "V:|-12-[v0]", views: nameLabel)
 
-        addConstraints(withVisualFormat: "V:|-8-[v0(44)]-4-[v1]-4-[v2(200)]-8-[v3(24)]-8-[v4(0.4)][v5(44)]|",
+        addConstraints(withVisualFormat: "V:|-p0-[v0(ih0)]-p1-[v1]-p1-[v2(ih1)]-p0-[v3(lh0)]-p0-[v4(0.4)][v5(bh0)]|",
+                       metrics: metrics,
                        views: profileImageView,
                        statusTextView,
                        statusImageView,
@@ -293,8 +279,12 @@ class FeedCell: BaseCell {
                        dividerLineView,
                        likeButton)
 
-        addConstraints(withVisualFormat: "V:[v0(44)]|", views: commentButton)
-        addConstraints(withVisualFormat: "V:[v0(44)]|", views: shareButton)
+        addConstraints(withVisualFormat: "V:[v0(bh0)]|",
+                       metrics: metrics,
+                       views: commentButton)
+        addConstraints(withVisualFormat: "V:[v0(bh0)]|",
+                       metrics: metrics,
+                       views: shareButton)
 
     }
 }

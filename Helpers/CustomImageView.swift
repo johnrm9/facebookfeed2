@@ -12,7 +12,7 @@ let imageCache = NSCache<AnyObject, AnyObject>()
 
 class CustomImageView: UIImageView {
     var imageUrlString: String?
-    func loadImageUsingUrlString(_ urlString: String){
+    func loadImageUsingUrlString(_ urlString: String) {
         imageUrlString = urlString
         guard let url = URL(string: urlString) else { return }
         image = nil

@@ -8,17 +8,23 @@
 
 import UIKit
 
+struct Friend {
+    let name: String
+    let image: UIImage
+}
+
 class FriendRequestsController: UITableViewController {
 
-    let cellId: String = "cellId"
-    let headerId: String = "headerId"
+    private let cellId: String = "cellId"
+    private let headerId: String = "headerId"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.title = "Friend Requests"
 
-        tableView.separatorColor = .rgb(r: 229, g: 231, b: 235)
+        tableView.separatorColor = .separatorColor
+
         tableView.sectionHeaderHeight = 26
 
         tableView.register(FriendRequestCell.self, forCellReuseIdentifier: cellId)
@@ -36,19 +42,12 @@ class FriendRequestsController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! FriendRequestCell
 
-        if indexPath.row % 3 == 0 {
-            cell.nameLabel.text = "Mark Zuckerberg"
-            cell.requestImageView.image = #imageLiteral(resourceName: "zuckprofile")
-        } else if indexPath.row % 3 == 1 {
-            cell.nameLabel.text = "Steve Jobs"
-            cell.requestImageView.image = #imageLiteral(resourceName: "steve_profile")
-        } else {
-            cell.nameLabel.text = "Mahatma Gandhi"
-            cell.requestImageView.image = #imageLiteral(resourceName: "gandhi_profile")
-        }
-
         cell.imageView?.backgroundColor = .black
 
+        cell.friend =
+            indexPath.row % 3 == 0 ? Friend(name: "Mark Zuckerberg", image: #imageLiteral(resourceName: "zuckprofile")) :
+            indexPath.row % 3 == 1 ? Friend(name: "Steve Jobs", image: #imageLiteral(resourceName: "steve_profile")) :
+                                     Friend(name: "Mahatma Gandhi", image: #imageLiteral(resourceName: "gandhi_profile"))
         return cell
     }
 
@@ -59,43 +58,32 @@ class FriendRequestsController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId) as! RequestHeader
 
-//        if section == 0 {
-//            header.nameLabel.text = "FRIEND REQUESTS"
-//        } else {
-//            header.nameLabel.text = "PEOPLE YOU MAY KNOW"
-//        }
-        header.nameLabel.text = section == 0 ? "FRIEND REQUESTS" : "PEOPLE YOU MAY KNOW"
+        header.headerText = section == 0 ? "FRIEND REQUESTS" : "PEOPLE YOU MAY KNOW"
         return header
     }
 
 }
 
-class RequestHeader: UITableViewHeaderFooterView {
+class RequestHeader: BaseTableHeaderView {
 
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        setupViews()
+    var headerText: String! {
+        didSet {
+            nameLabel.text = headerText
+        }
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "FRIEND REQUESTS"
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = .systemFont(ofSize: 10)
         label.textColor = UIColor(white: 0.4, alpha: 1)
         return label
     }()
 
-    let bottomBorderView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .rgb(r: 229, g: 231, b: 235)
-        return view
-    }()
+    override func setupViews() {
+        super.setupViews()
 
-    func setupViews() {
+        let bottomBorderView = UIView.separatorView(UIColor.separatorColor)
+
         addSubviews(nameLabel, bottomBorderView)
 
         addConstraints(withVisualFormat: "H:|-8-[v0]-8-|", views: nameLabel)
@@ -105,43 +93,40 @@ class RequestHeader: UITableViewHeaderFooterView {
     }
 }
 
-class FriendRequestCell: UITableViewCell {
+class FriendRequestCell: BaseTableCell {
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupViews()
+    var friend: Friend! {
+        didSet {
+            nameLabel.text = friend.name
+            requestImageView.image = friend.image
+        }
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Sample Name"
-        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.font = .boldSystemFont(ofSize: 12)
         return label
     }()
 
-    let requestImageView: UIImageView = {
+    private let requestImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = UIColor.blue
+        imageView.backgroundColor = .blue
         imageView.layer.masksToBounds = true
         return imageView
     }()
 
-    let confirmButton: UIButton = {
+    private let confirmButton: UIButton = {
         let button = UIButton()
         button.setTitle("Confirm", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .rgb(r: 87, g: 143, b: 255)
+        button.backgroundColor = .buttonBackgroundColor
         button.titleLabel?.font = .boldSystemFont(ofSize: 10)
         button.layer.cornerRadius = 2
         return button
     }()
 
-    let deleteButton: UIButton = {
+    private let deleteButton: UIButton = {
         let button = UIButton()
         button.setTitle("Delete", for: .normal)
         button.setTitleColor(UIColor(white: 0.3, alpha: 1), for: .normal)
@@ -152,7 +137,9 @@ class FriendRequestCell: UITableViewCell {
         return button
     }()
 
-    func setupViews() {
+    override func setupViews() {
+        super.setupViews()
+
         addSubviews(requestImageView, nameLabel, confirmButton, deleteButton)
 
         addConstraints(withVisualFormat: "H:|-16-[v0(52)]-8-[v1]|", views: requestImageView, nameLabel)
@@ -165,6 +152,5 @@ class FriendRequestCell: UITableViewCell {
         addConstraints(withVisualFormat: "V:[v0(24)]-8-|", views: deleteButton)
 
     }
-
 }
 

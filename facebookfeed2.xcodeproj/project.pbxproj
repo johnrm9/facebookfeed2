@@ -7,9 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A77F33E87F9E39FE1FC439B /* Pods_facebookfeed2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD3D30DE87A734F06CC5DB3 /* Pods_facebookfeed2.framework */; };
 		DC0F65B1214ED22D00CDA422 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0F65B0214ED22D00CDA422 /* CustomImageView.swift */; };
 		DC0F65B3214ED5DB00CDA422 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0F65B2214ED5DB00CDA422 /* CustomTabBarController.swift */; };
 		DC0F65B5214EDC4100CDA422 /* OtherControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0F65B4214EDC4100CDA422 /* OtherControllers.swift */; };
+		DC219C832150DAF600E3498A /* all_posts.json in Resources */ = {isa = PBXBuildFile; fileRef = DC219C812150DAF600E3498A /* all_posts.json */; };
+		DC219C842150DAF600E3498A /* single_post.json in Resources */ = {isa = PBXBuildFile; fileRef = DC219C822150DAF600E3498A /* single_post.json */; };
+		DC219C862150DD5D00E3498A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC219C852150DD5D00E3498A /* Service.swift */; };
+		DC2EC332215149AF00FC6474 /* DarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2EC331215149AF00FC6474 /* DarkView.swift */; };
+		DC3D9A6A21574151008EC108 /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3D9A6921574151008EC108 /* PostData.swift */; };
 		DC49AC3E214D66E000EBA1DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC49AC3D214D66E000EBA1DA /* AppDelegate.swift */; };
 		DC49AC40214D66E000EBA1DA /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC49AC3F214D66E000EBA1DA /* FeedController.swift */; };
 		DC49AC45214D66E300EBA1DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC49AC44214D66E300EBA1DA /* Assets.xcassets */; };
@@ -18,12 +24,28 @@
 		DC49AC53214D7D4700EBA1DA /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC49AC52214D7D4700EBA1DA /* BaseCell.swift */; };
 		DC49AC56214D8CC500EBA1DA /* ColorAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC49AC55214D8CC500EBA1DA /* ColorAssets.xcassets */; };
 		DC49AC58214D8E7D00EBA1DA /* TestImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC49AC57214D8E7D00EBA1DA /* TestImages.xcassets */; };
+		DC56EEB12157352700921CC7 /* ServiceMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC56EEB02157352700921CC7 /* ServiceMetrics.swift */; };
+		DC81C82E21527F2B009CC090 /* BaseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC81C82D21527F2B009CC090 /* BaseTableCell.swift */; };
+		DC81C83021528168009CC090 /* BaseTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC81C82F21528168009CC090 /* BaseTableHeaderView.swift */; };
+		DC81C8332152983C009CC090 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC81C8322152983C009CC090 /* Post.swift */; };
+		DC81C83521529A1A009CC090 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC81C83421529A1A009CC090 /* UIColorExtensions.swift */; };
+		DC81C83721529B03009CC090 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC81C83621529B03009CC090 /* UIViewExtensions.swift */; };
+		DC81C83921529BFE009CC090 /* AttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC81C83821529BFE009CC090 /* AttributedStringExtensions.swift */; };
+		DC888B9E2152FF9C00492D14 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC888B9D2152FF9C00492D14 /* StringExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0FD3D30DE87A734F06CC5DB3 /* Pods_facebookfeed2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_facebookfeed2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D8BCD44F1AE999FFDFFE3CA /* Pods-facebookfeed2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-facebookfeed2.debug.xcconfig"; path = "Target Support Files/Pods-facebookfeed2/Pods-facebookfeed2.debug.xcconfig"; sourceTree = "<group>"; };
+		9498F84763770E055EBFE65C /* Pods-facebookfeed2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-facebookfeed2.release.xcconfig"; path = "Target Support Files/Pods-facebookfeed2/Pods-facebookfeed2.release.xcconfig"; sourceTree = "<group>"; };
 		DC0F65B0214ED22D00CDA422 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		DC0F65B2214ED5DB00CDA422 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		DC0F65B4214EDC4100CDA422 /* OtherControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherControllers.swift; sourceTree = "<group>"; };
+		DC219C812150DAF600E3498A /* all_posts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = all_posts.json; sourceTree = "<group>"; };
+		DC219C822150DAF600E3498A /* single_post.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = single_post.json; sourceTree = "<group>"; };
+		DC219C852150DD5D00E3498A /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		DC2EC331215149AF00FC6474 /* DarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkView.swift; sourceTree = "<group>"; };
+		DC3D9A6921574151008EC108 /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
 		DC49AC3A214D66E000EBA1DA /* facebookfeed2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = facebookfeed2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC49AC3D214D66E000EBA1DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC49AC3F214D66E000EBA1DA /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
@@ -34,6 +56,14 @@
 		DC49AC52214D7D4700EBA1DA /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		DC49AC55214D8CC500EBA1DA /* ColorAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorAssets.xcassets; sourceTree = "<group>"; };
 		DC49AC57214D8E7D00EBA1DA /* TestImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TestImages.xcassets; sourceTree = "<group>"; };
+		DC56EEB02157352700921CC7 /* ServiceMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceMetrics.swift; sourceTree = "<group>"; };
+		DC81C82D21527F2B009CC090 /* BaseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableCell.swift; sourceTree = "<group>"; };
+		DC81C82F21528168009CC090 /* BaseTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableHeaderView.swift; sourceTree = "<group>"; };
+		DC81C8322152983C009CC090 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		DC81C83421529A1A009CC090 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		DC81C83621529B03009CC090 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		DC81C83821529BFE009CC090 /* AttributedStringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringExtensions.swift; sourceTree = "<group>"; };
+		DC888B9D2152FF9C00492D14 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,18 +71,48 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A77F33E87F9E39FE1FC439B /* Pods_facebookfeed2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A084D677244563B68BD1BA3B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0FD3D30DE87A734F06CC5DB3 /* Pods_facebookfeed2.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BE98BDBF40BB9BD4F4FC3B5C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4D8BCD44F1AE999FFDFFE3CA /* Pods-facebookfeed2.debug.xcconfig */,
+				9498F84763770E055EBFE65C /* Pods-facebookfeed2.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DC219C802150DAB700E3498A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DC219C812150DAF600E3498A /* all_posts.json */,
+				DC219C822150DAF600E3498A /* single_post.json */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		DC49AC31214D66E000EBA1DA = {
 			isa = PBXGroup;
 			children = (
 				DC49AC3C214D66E000EBA1DA /* facebookfeed2 */,
+				DC219C802150DAB700E3498A /* Supporting Files */,
 				DC49AC4F214D738400EBA1DA /* Helpers */,
 				DC49AC3B214D66E000EBA1DA /* Products */,
+				BE98BDBF40BB9BD4F4FC3B5C /* Pods */,
+				A084D677244563B68BD1BA3B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -69,12 +129,14 @@
 			children = (
 				DC49AC54214D8C9D00EBA1DA /* Resouces */,
 				DC49AC3D214D66E000EBA1DA /* AppDelegate.swift */,
+				DC81C831215297F2009CC090 /* Model */,
 				DC49AC3F214D66E000EBA1DA /* FeedController.swift */,
 				DC0F65B2214ED5DB00CDA422 /* CustomTabBarController.swift */,
 				DC0F65B4214EDC4100CDA422 /* OtherControllers.swift */,
 				DC49AC44214D66E300EBA1DA /* Assets.xcassets */,
 				DC49AC46214D66E300EBA1DA /* LaunchScreen.storyboard */,
 				DC49AC49214D66E300EBA1DA /* Info.plist */,
+				DC56EEB22157358900921CC7 /* Service */,
 			);
 			path = facebookfeed2;
 			sourceTree = "<group>";
@@ -83,8 +145,15 @@
 			isa = PBXGroup;
 			children = (
 				DC49AC50214D739D00EBA1DA /* Extensions.swift */,
+				DC888B9D2152FF9C00492D14 /* StringExtensions.swift */,
+				DC81C83621529B03009CC090 /* UIViewExtensions.swift */,
+				DC81C83421529A1A009CC090 /* UIColorExtensions.swift */,
+				DC81C83821529BFE009CC090 /* AttributedStringExtensions.swift */,
 				DC49AC52214D7D4700EBA1DA /* BaseCell.swift */,
+				DC81C82D21527F2B009CC090 /* BaseTableCell.swift */,
+				DC81C82F21528168009CC090 /* BaseTableHeaderView.swift */,
 				DC0F65B0214ED22D00CDA422 /* CustomImageView.swift */,
+				DC2EC331215149AF00FC6474 /* DarkView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -98,6 +167,24 @@
 			path = Resouces;
 			sourceTree = "<group>";
 		};
+		DC56EEB22157358900921CC7 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				DC219C852150DD5D00E3498A /* Service.swift */,
+				DC56EEB02157352700921CC7 /* ServiceMetrics.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		DC81C831215297F2009CC090 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DC81C8322152983C009CC090 /* Post.swift */,
+				DC3D9A6921574151008EC108 /* PostData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -105,6 +192,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DC49AC4C214D66E300EBA1DA /* Build configuration list for PBXNativeTarget "facebookfeed2" */;
 			buildPhases = (
+				DC2584C421516943000B1FD4 /* SwiftLint */,
+				C8EDBEFA0C252BBEEBF32B73 /* [CP] Check Pods Manifest.lock */,
 				DC49AC36214D66E000EBA1DA /* Sources */,
 				DC49AC37214D66E000EBA1DA /* Frameworks */,
 				DC49AC38214D66E000EBA1DA /* Resources */,
@@ -130,6 +219,7 @@
 				TargetAttributes = {
 					DC49AC39214D66E000EBA1DA = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -158,23 +248,79 @@
 			files = (
 				DC49AC48214D66E300EBA1DA /* LaunchScreen.storyboard in Resources */,
 				DC49AC58214D8E7D00EBA1DA /* TestImages.xcassets in Resources */,
+				DC219C832150DAF600E3498A /* all_posts.json in Resources */,
 				DC49AC56214D8CC500EBA1DA /* ColorAssets.xcassets in Resources */,
 				DC49AC45214D66E300EBA1DA /* Assets.xcassets in Resources */,
+				DC219C842150DAF600E3498A /* single_post.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C8EDBEFA0C252BBEEBF32B73 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-facebookfeed2-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DC2584C421516943000B1FD4 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DC49AC36214D66E000EBA1DA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC56EEB12157352700921CC7 /* ServiceMetrics.swift in Sources */,
+				DC3D9A6A21574151008EC108 /* PostData.swift in Sources */,
 				DC49AC53214D7D4700EBA1DA /* BaseCell.swift in Sources */,
+				DC219C862150DD5D00E3498A /* Service.swift in Sources */,
+				DC81C83521529A1A009CC090 /* UIColorExtensions.swift in Sources */,
+				DC2EC332215149AF00FC6474 /* DarkView.swift in Sources */,
+				DC81C8332152983C009CC090 /* Post.swift in Sources */,
 				DC49AC40214D66E000EBA1DA /* FeedController.swift in Sources */,
+				DC81C83021528168009CC090 /* BaseTableHeaderView.swift in Sources */,
 				DC0F65B3214ED5DB00CDA422 /* CustomTabBarController.swift in Sources */,
+				DC888B9E2152FF9C00492D14 /* StringExtensions.swift in Sources */,
+				DC81C83721529B03009CC090 /* UIViewExtensions.swift in Sources */,
+				DC81C83921529BFE009CC090 /* AttributedStringExtensions.swift in Sources */,
 				DC49AC51214D739D00EBA1DA /* Extensions.swift in Sources */,
 				DC0F65B5214EDC4100CDA422 /* OtherControllers.swift in Sources */,
+				DC81C82E21527F2B009CC090 /* BaseTableCell.swift in Sources */,
 				DC49AC3E214D66E000EBA1DA /* AppDelegate.swift in Sources */,
 				DC0F65B1214ED22D00CDA422 /* CustomImageView.swift in Sources */,
 			);
@@ -310,6 +456,7 @@
 		};
 		DC49AC4D214D66E300EBA1DA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D8BCD44F1AE999FFDFFE3CA /* Pods-facebookfeed2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -321,13 +468,14 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.JohnMartin.facebookfeed2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		DC49AC4E214D66E300EBA1DA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9498F84763770E055EBFE65C /* Pods-facebookfeed2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -339,7 +487,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.JohnMartin.facebookfeed2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

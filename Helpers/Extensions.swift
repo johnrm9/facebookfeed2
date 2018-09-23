@@ -8,9 +8,25 @@
 
 import UIKit
 
+extension UIButton {
+    static func buttonForTitle(_ title: String, image: UIImage,
+                               titleColor: UIColor = .buttonTitleColor,
+                               font: UIFont = .boldSystemFont(ofSize: 14),
+                               titleEdgeInsets: UIEdgeInsets =
+                                    UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)) -> UIButton {
+        let button = UIButton()
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(titleColor, for: .normal)
+        button.setImage(image, for: .normal)
+        button.titleEdgeInsets = titleEdgeInsets
+        button.titleLabel?.font = font
+        return button
+    }
+}
+
 extension UIImage {
 
-    typealias RectCalculationClosure = (_ parentSize: CGSize, _ newImageSize: CGSize)->(CGRect)
+    typealias RectCalculationClosure = (_ parentSize: CGSize, _ newImageSize: CGSize) -> (CGRect)
     func with(image named: String, rectCalculation: RectCalculationClosure) -> UIImage {
         return with(image: UIImage(named: named), rectCalculation: rectCalculation)
     }
@@ -31,61 +47,9 @@ extension UIImage {
     }
 }
 
-extension Int { var spaces: String { return String(repeating: " ", count: self) } }
-
-extension NSMutableAttributedString {
-    func setLineSpacing(_ spacing: CGFloat = 0) -> NSMutableAttributedString {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = spacing
-        addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, self.length))
-        return self
-    }
-}
-
-extension NSMutableAttributedString {
-    func attachImage(_ image: UIImage, bounds: CGRect) -> NSMutableAttributedString {
-        let attachment = NSTextAttachment()
-        attachment.image = image
-        attachment.bounds = bounds
-        append(NSAttributedString(attachment: attachment))
-        return self
-    }
-}
-
 extension CGRect {
-    static func estimatedBoundingRectWithString(_ string: String, width: CGFloat, attributes: [NSAttributedStringKey: Any]? = nil) -> CGRect {
+    static func estimatedBoundingRectWithString(_ string: String, width: CGFloat, attributes: [NSAttributedString.Key: Any]? = nil) -> CGRect {
         let size = CGSize(width: width, height: .infinity)
         return NSString(string: string).boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: attributes, context: nil)
     }
 }
-
-extension UIColor {
-    static func rgb(r: CGFloat, g: CGFloat, b: CGFloat) -> UIColor {
-        return UIColor(red: r/255, green: g/255, blue: b/255, alpha: 1)
-    }
-}
-extension UIView{
-    func addSubviews(_ views: UIView...){
-        views.forEach {
-            addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
-    }
-}
-
-extension UIView {
-
-    func addConstraints(withVisualFormat format: String, views: UIView...) {
-        var viewsDictionary = [String: UIView]()
-
-        views.enumerated().forEach{
-            let (key, view) =  ("v\($0.0)", $0.1)
-            viewsDictionary[key] = view
-            view.translatesAutoresizingMaskIntoConstraints = false
-        }
-
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: [], metrics: nil, views: viewsDictionary))
-    }
-}
-
-
